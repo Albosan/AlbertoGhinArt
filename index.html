@@ -138,7 +138,6 @@
 
                 <!-- Language Selector & Inquiry Button -->
                 <div class="hidden sm:flex items-center space-x-4">
-                    <!-- Language Selector UI -->
                     <div class="flex items-center bg-gallery-100 border border-gallery-200 p-1 rounded-sm text-xs font-medium">
                         <button onclick="switchLanguage('en')" id="lang-en" class="px-2 py-0.5 transition rounded-sm text-gray-500 hover:text-gallery-gold">ENG</button>
                         <button onclick="switchLanguage('it')" id="lang-it" class="px-2 py-0.5 transition rounded-sm text-gallery-900 bg-white font-semibold shadow-sm">IT</button>
@@ -307,7 +306,8 @@
     <!-- Biography Section -->
     <section id="about" class="py-20 sm:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div class="lg:col-span-5 sticky top-28">
+            <!-- AGGIORNAMENTO SOLUZIONE A: lg:sticky top-28 anziché sticky top-28 per disattivare lo sticky su mobile -->
+            <div class="lg:col-span-5 lg:sticky lg:top-28">
                 <div class="relative bg-gallery-200 aspect-[4/5] border border-gallery-200 shadow-lg flex items-center justify-center overflow-hidden">
                     <img src="Images/Foto Profilo.jpg" 
                          alt="Alberto Luca Ghin - Artist Profile" 
@@ -1011,7 +1011,6 @@
             currentLang = lang;
             document.documentElement.lang = lang;
 
-            // Highlight language selector buttons
             ['en', 'it', 'de'].forEach(l => {
                 const btn = document.getElementById(`lang-${l}`);
                 const mobBtn = document.getElementById(`mob-lang-${l}`);
@@ -1026,7 +1025,6 @@
 
             const t = translations[lang];
 
-            // Header & Hero
             document.getElementById('txt-banner').textContent = t.banner;
             document.getElementById('txt-banner-btn').textContent = t.bannerBtn;
             document.getElementById('txt-subhead').textContent = t.subhead;
@@ -1049,7 +1047,6 @@
             document.getElementById('hero-btn-catalog').textContent = t.heroBtnCatalog;
             document.getElementById('hero-btn-statement').textContent = t.heroBtnStatement;
 
-            // Catalog Section
             document.getElementById('artworks-title').textContent = t.artworksTitle;
             document.getElementById('artworks-sub').textContent = t.artworksSub;
             document.getElementById('artworks-showing-label').textContent = t.artworksShowing;
@@ -1059,7 +1056,6 @@
             document.getElementById('opt-sort-default').textContent = t.sortDefault;
             document.getElementById('opt-sort-title').textContent = t.sortTitle;
 
-            // Series Section
             document.getElementById('series-tag').textContent = t.seriesTag;
             document.getElementById('series-title').textContent = t.seriesTitle;
             document.getElementById('series-sub').textContent = t.seriesSub;
@@ -1070,7 +1066,6 @@
             document.getElementById('s3-desc').textContent = t.s3Desc;
             document.getElementById('s3-btn').textContent = t.s3Btn;
 
-            // Bio & Poetics
             document.getElementById('bio-tag').textContent = t.bioTag;
             document.getElementById('bio-quote').textContent = t.bioQuote;
             document.getElementById('bio-main-text').textContent = t.bioMainText;
@@ -1088,7 +1083,6 @@
             document.getElementById('stat-2-label').textContent = t.stat2Label;
             document.getElementById('stat-3-label').textContent = t.stat3Label;
 
-            // Exhibitions
             document.getElementById('ex-tag').textContent = t.exTag;
             document.getElementById('ex-title').textContent = t.exTitle;
             document.getElementById('ex-cv-btn').childNodes[0].nodeValue = t.exCvBtn + " ";
@@ -1097,13 +1091,11 @@
             document.getElementById('ex2-title').textContent = t.ex2Title;
             document.getElementById('ex2-sub').textContent = t.ex2Sub;
 
-            // Footer
             document.getElementById('ft-copy').textContent = t.ftCopy;
             document.getElementById('ft-link-copy').textContent = t.ftLinkCopy;
             document.getElementById('ft-link-inq').textContent = t.ftLinkInq;
             document.getElementById('ft-link-top').childNodes[0].nodeValue = t.ftLinkTop + " ";
 
-            // Modals Labels
             document.getElementById('modal-carousel-label').textContent = t.modalCarouselLabel;
             document.getElementById('modal-zoom-hint').innerHTML = `<i class="fa-solid fa-magnifying-glass-plus text-gallery-gold mr-1"></i> ${t.modalZoomHint}`;
             document.getElementById('zoom-btn-text').textContent = t.modalZoomBtn;
@@ -1128,7 +1120,6 @@
             document.getElementById('prot-p2').textContent = t.protP2;
             document.getElementById('prot-btn').textContent = t.protBtn;
 
-            // Re-render artworks grid & active modal with new lang
             renderGallery(filteredArtworks);
             if (currentArtwork && !document.getElementById('artwork-modal').classList.contains('hidden')) {
                 openArtworkModal(currentArtwork.id);
