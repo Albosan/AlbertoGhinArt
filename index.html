@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -136,11 +136,11 @@
                     </button>
                 </nav>
 
-                <!-- Language Selector & Inquiry Button -->
+                <!-- Language Selector & Inquiry Button (Default ENG) -->
                 <div class="hidden sm:flex items-center space-x-4">
                     <div class="flex items-center bg-gallery-100 border border-gallery-200 p-1 rounded-sm text-xs font-medium">
-                        <button onclick="switchLanguage('en')" id="lang-en" class="px-2 py-0.5 transition rounded-sm text-gray-500 hover:text-gallery-gold">ENG</button>
-                        <button onclick="switchLanguage('it')" id="lang-it" class="px-2 py-0.5 transition rounded-sm text-gallery-900 bg-white font-semibold shadow-sm">IT</button>
+                        <button onclick="switchLanguage('en')" id="lang-en" class="px-2 py-0.5 transition rounded-sm text-gallery-900 bg-white font-semibold shadow-sm">ENG</button>
+                        <button onclick="switchLanguage('it')" id="lang-it" class="px-2 py-0.5 transition rounded-sm text-gray-500 hover:text-gallery-gold">IT</button>
                         <button onclick="switchLanguage('de')" id="lang-de" class="px-2 py-0.5 transition rounded-sm text-gray-500 hover:text-gallery-gold">DE</button>
                     </div>
 
@@ -151,8 +151,8 @@
 
                 <div class="lg:hidden flex items-center space-x-3">
                     <div class="flex items-center bg-gallery-100 border border-gallery-200 p-0.5 rounded-sm text-[11px] font-medium">
-                        <button onclick="switchLanguage('en')" id="mob-lang-en" class="px-1.5 py-0.5 text-gray-500">ENG</button>
-                        <button onclick="switchLanguage('it')" id="mob-lang-it" class="px-1.5 py-0.5 text-gallery-900 font-semibold bg-white">IT</button>
+                        <button onclick="switchLanguage('en')" id="mob-lang-en" class="px-1.5 py-0.5 text-gallery-900 font-semibold bg-white">ENG</button>
+                        <button onclick="switchLanguage('it')" id="mob-lang-it" class="px-1.5 py-0.5 text-gray-500">IT</button>
                         <button onclick="switchLanguage('de')" id="mob-lang-de" class="px-1.5 py-0.5 text-gray-500">DE</button>
                     </div>
                     <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gallery-900 p-2 focus:outline-none">
@@ -234,6 +234,7 @@
                         <option value="Lake View">Lake View</option>
                         <option value="Cities from the Sky">Cities from the Sky</option>
                         <option value="Modern Skylines">Modern Skylines</option>
+                        <option value="Still Life">Still Life</option>
                     </select>
                 </div>
                 <div>
@@ -269,7 +270,7 @@
                         <p id="s1-desc" class="text-gray-600 text-xs leading-relaxed mb-6">Nocturnal reflections and quiet lakeside studies over Horgen (Zurich Lake) and Pula harbor through oil stippling on paper.</p>
                     </div>
                     <button onclick="setFilterSeries('Lake View')" class="text-left text-xs uppercase tracking-widest font-semibold text-gallery-900 group-hover:text-gallery-gold flex items-center gap-2">
-                        <span id="s1-btn">View 4 Artworks</span>
+                        <span id="s1-btn">View Artworks</span>
                         <i class="fa-solid fa-arrow-right-long text-gallery-gold"></i>
                     </button>
                 </div>
@@ -291,11 +292,11 @@
                 <div class="bg-white p-6 border border-gallery-200 flex flex-col justify-between group hover:border-gallery-gold transition duration-300 shadow-sm">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest text-gallery-gold">2026 Collection</span>
-                        <h3 class="font-serif text-xl text-gallery-900 mt-1 mb-3 group-hover:text-gallery-gold transition">Modern Skylines</h3>
-                        <p id="s3-desc" class="text-gray-600 text-xs leading-relaxed mb-6">Urban architectural silhouettes and financial district atmospheres created with high-density pointillist oil application.</p>
+                        <h3 class="font-serif text-xl text-gallery-900 mt-1 mb-3 group-hover:text-gallery-gold transition">Modern Skylines & Still Life</h3>
+                        <p id="s3-desc" class="text-gray-600 text-xs leading-relaxed mb-6">Urban architectural silhouettes and philosophical botanical studies created with high-density pointillist oil application.</p>
                     </div>
                     <button onclick="setFilterSeries('Modern Skylines')" class="text-left text-xs uppercase tracking-widest font-semibold text-gallery-900 group-hover:text-gallery-gold flex items-center gap-2">
-                        <span id="s3-btn">View Artwork</span>
+                        <span id="s3-btn">View Artworks</span>
                         <i class="fa-solid fa-arrow-right-long text-gallery-gold"></i>
                     </button>
                 </div>
@@ -306,7 +307,6 @@
     <!-- Biography Section -->
     <section id="about" class="py-20 sm:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <!-- AGGIORNAMENTO SOLUZIONE A: lg:sticky top-28 anziché sticky top-28 per disattivare lo sticky su mobile -->
             <div class="lg:col-span-5 lg:sticky lg:top-28">
                 <div class="relative bg-gallery-200 aspect-[4/5] border border-gallery-200 shadow-lg flex items-center justify-center overflow-hidden">
                     <img src="Images/Foto Profilo.jpg" 
@@ -602,9 +602,93 @@
 
     <!-- JavaScript Dataset, Translations & App Logic -->
     <script>
-        let currentLang = 'it';
+        // DEFAULT ENTRY LANGUAGE SET TO ENGLISH ('en')
+        let currentLang = 'en';
 
         const translations = {
+            en: {
+                banner: "All artworks protected under EU Copyright & TDM AI Opt-Out Directives. Original Pointillism on Paper.",
+                bannerBtn: "Learn More",
+                subhead: "Fine Art Studio & Gallery",
+                navArtworks: "Selected Artworks",
+                navSeries: "Thematic Series",
+                navAbout: "Biography",
+                navExhibitions: "Exhibitions",
+                navCopyright: "Copyright Notice",
+                navInquiry: "Private Viewing Inquiry",
+                heroTag: "Modern Pointillism Collection • 2026",
+                heroTitle: "Luminous Horizons & Pointillist Surfaces",
+                heroDesc: "An exploration of light, reflection, and aerial stippling on paper by fine artist Alberto Luca Ghin. Oil studies in Modern Pointillism.",
+                heroBtnCatalog: "Explore Catalog",
+                heroBtnStatement: "Artist Statement",
+                artworksTitle: "Selected Artworks",
+                artworksSub: "Oil on paper pointillist studies. All dimensions 30 × 42 cm • 2026 Edition.",
+                artworksShowing: "Showing",
+                artworksCountLabel: "Artworks",
+                searchPlaceholder: "Search title or keyword...",
+                allSeries: "All Series",
+                sortDefault: "Sort: Default Order",
+                sortTitle: "Sort: Title (A-Z)",
+                seriesTag: "Curated Cycles",
+                seriesTitle: "Thematic Series",
+                seriesSub: "Explorations in Modern Pointillism on paper across water, skylines, and aerial perspectives.",
+                s1Desc: "Nocturnal reflections and quiet lakeside studies over Horgen (Zurich Lake) and Pula harbor through oil stippling on paper.",
+                s1Btn: "View Artworks",
+                s2Desc: "Aerial pointillist compositions of Palermo through delicate oil stippling on paper, capturing urban grids and light density.",
+                s2Btn: "View 2 Artworks",
+                s3Desc: "Urban architectural silhouettes and philosophical botanical studies created with high-density pointillist oil application.",
+                s3Btn: "View Artworks",
+                bioQuote: `"Pointillism on paper is a meditation on light through rhythmic pigment placement."`,
+                bioTag: "Artist Biography",
+                bioMainText: "Based in Zurich, Alberto Luca Ghin specializes in Modern Pointillism on paper. His 2026 catalog focuses on uniform 30 × 42 cm oil studies investigating nocturnal light on lakes, high-altitude city perspectives, and contemporary financial skylines.",
+                poeticsTitle: "Poetics & Vision",
+                p1Title: "Black as a Primordial Canvas & Active Substance",
+                p1Desc: "In my work, black is never a passive void or mere darkness, but a living, primordial substance. Acting like silence in music, it strips away daytime distractions, creating a dense, contemplative space where forms are preserved before being brought to light.",
+                p2Title: "Pointillism as a Search for Essence",
+                p2Desc: "Through meticulous oil stippling on paper, each individual dot becomes an atomic quantum of energy. By rejecting hard outlines, forms emerge solely through the varying density and proximity of dots—a geometric process that captures the core essence of light and matter.",
+                p3Title: "Night as the Revealer of Light",
+                p3Desc: "Exploring nocturnal visions allows light to act as a sculptor. Rather than illuminating everything indiscriminately, night reflections, urban glows, and luminous horizons emerge from the darkness with heightened intimacy, transforming each piece into a meditative mirror of the inner self.",
+                p4Title: "The Synthesis of Rigor and Mysticism",
+                p4Desc: "My practice bridges two contrasting worlds: the painstaking precision of the pointillist technique and the ethereal, floating quality of the final image. The result is a process of emergence—building luminous, poetic forms directly out of the deep dark.",
+                bioTechniqueNote: "Using precise oil stippling on heavyweight fine art paper, each work builds complex optical colors that reveal subtle depth and texture.",
+                stat1Label: "Current Collection",
+                stat2Label: "Paper Format",
+                stat3Label: "Oil on Paper",
+                exTag: "Selected History",
+                exTitle: "Exhibitions",
+                exCvBtn: "Request Full CV",
+                ex1Title: `"Nocturnal Pointillism & Lake Views"`,
+                ex1Sub: "Zurich Lake Gallery Exhibition • Zurich, Switzerland",
+                ex2Title: `"Aerial Perspectives: Palermo & Beyond"`,
+                ex2Sub: "Contemporary Art Forum • Milan, Italy",
+                ftCopy: "© 2026 Alberto Luca Ghin. All rights reserved. Fine Art Studio & Catalog.",
+                ftLinkCopy: "Copyright Notice",
+                ftLinkInq: "Private Inquiries",
+                ftLinkTop: "Back to Top",
+                cardViewDetails: "View Artwork Details",
+                cardDetailsBtn: "Details",
+                modalCarouselLabel: "Artwork Close-Ups & Details Carousel",
+                modalZoomHint: "Hover artwork for 2.5x pointillist zoom lens",
+                modalZoomBtn: "Toggle Zoom",
+                modalFullscreenBtn: "Fullscreen",
+                modalInquireBtn: "Inquire About Acquisition",
+                lblMedium: "Medium:",
+                lblStyle: "Style:",
+                lblDimensions: "Dimensions:",
+                lblSeries: "Series:",
+                lblCuratorial: "Curatorial Note",
+                inqTitle: "Private Inquiry",
+                lblInqName: "Full Name *",
+                lblInqEmail: "Email Address *",
+                lblInqMsg: "Message / Requirements",
+                inqMsgPh: "Please state your inquiry regarding private viewing or acquisition...",
+                btnInqSubmit: "Send Private Inquiry",
+                protTag: "Intellectual Property Protection",
+                protTitle: "Copyright & AI Opt-Out Statement",
+                protP1: "All visual artworks, images, and curatorial texts on this site are original creations by Alberto Luca Ghin, protected under international copyright law and the EU Copyright Directive (2019/790).",
+                protP2: "All Text & Data Mining (TDM), web scraping, and Generative AI model training are expressly prohibited without written consent.",
+                protBtn: "I Understand"
+            },
             it: {
                 banner: "Tutte le opere sono protette dalle Direttive UE sul Diritto d'Autore e Opt-Out TDM AI. Puntinismo originale su carta.",
                 bannerBtn: "Scopri di più",
@@ -632,11 +716,11 @@
                 seriesTitle: "Serie Tematiche",
                 seriesSub: "Esplorazioni nel Puntinismo Moderno su carta attraverso specchi d'acqua, skyline e viste aeree.",
                 s1Desc: "Riflessi notturni e studi sul lago di Horgen (Lago di Zurigo) e il porto di Pola attraverso la punteggiatura ad olio su carta.",
-                s1Btn: "Vedi 4 Opere",
-                s2Desc: "Composizioni puntiniste aeree di Palermo realizzate con una delicata punteggiatura ad olio su carta, che catturano griglie urbane e densità luminosa.",
+                s1Btn: "Vedi Opere",
+                s2Desc: "Composizioni puntiniste aeree di Palermo realizzate con una delicata stesura ad olio su carta, che catturano griglie urbane e densità luminosa.",
                 s2Btn: "Vedi 2 Opere",
                 s3Desc: "Silhouette architettoniche urbane ed atmosfere dei distretti finanziari create con un'elevata densità di stesura puntinista.",
-                s3Btn: "Vedi Opera",
+                s3Btn: "Vedi Opere",
                 bioQuote: `"Il puntinismo su carta è una meditazione sulla luce attraverso la disposizione ritmica del pigmento."`,
                 bioTag: "Biografia dell'Artista",
                 bioMainText: "Con base a Zurigo, Alberto Luca Ghin è specializzato nel Puntinismo Moderno su carta. Il suo catalogo 2026 si concentra su studi ad olio nel formato uniforme 30 × 42 cm che indicano la luce notturna sui laghi, vedute aeree delle città e skyline finanziari contemporanei.",
@@ -715,11 +799,11 @@
                 seriesTitle: "Thematische Serien",
                 seriesSub: "Erkundungen des Modernen Pointillismus auf Papier über Wasserflächen, Skylines und Luftperspektiven.",
                 s1Desc: "Nächtliche Reflexionen und ruhige Uferstudien über Horgen (Zürichsee) und den Hafen von Pula durch Ölstupftechnik auf Papier.",
-                s1Btn: "4 Werke Ansehen",
+                s1Btn: "Werke Ansehen",
                 s2Desc: "Pointillistische Luftaufnahmen von Palermo durch feine Ölstupftechnik auf Papier, die urbane Raster und Lichtdichte einfangen.",
                 s2Btn: "2 Werke Ansehen",
                 s3Desc: "Urbane architektonische Silhouetten und Atmosphären von Finanzdistrikten, geschaffen mit hoher pointillistischer Öldichte.",
-                s3Btn: "Werk Ansehen",
+                s3Btn: "Werke Ansehen",
                 bioQuote: `"Pointillismus auf Papier ist eine Meditation über das Licht durch rhythmischen Pigmentauftrag."`,
                 bioTag: "Künstlerbiografie",
                 bioMainText: "Alberto Luca Ghin lebt in Zürich und ist auf Modernen Pointillismus auf Papier spezialisiert. Sein Katalog 2026 konzentriert sich auf einheitliche 30 × 42 cm große Ölstudien, die das Nachtlicht auf Seen, Stadtperspektiven aus der Vogelperspektive und moderne Finanz-Skylines untersuchen.",
@@ -770,149 +854,78 @@
                 protP1: "Alle visuellen Kunstwerke, Bilder und kuratorischen Texte auf dieser Website sind originale Werke von Alberto Luca Ghin, geschützt durch das internationale Urheberrecht und die EU-Urheberrechtsrichtlinie (2019/790).",
                 protP2: "Jegliches Text & Data Mining (TDM), Web-Scraping und das Training von Generativen KI-Modellen ist ohne schriftliche Genehmigung ausdrücklich untersagt.",
                 protBtn: "Ich Verstehe"
-            },
-            en: {
-                banner: "All artworks protected under EU Copyright & TDM AI Opt-Out Directives. Original Pointillism on Paper.",
-                bannerBtn: "Learn More",
-                subhead: "Fine Art Studio & Gallery",
-                navArtworks: "Selected Artworks",
-                navSeries: "Thematic Series",
-                navAbout: "Biography",
-                navExhibitions: "Exhibitions",
-                navCopyright: "Copyright Notice",
-                navInquiry: "Private Viewing Inquiry",
-                heroTag: "Modern Pointillism Collection • 2026",
-                heroTitle: "Luminous Horizons & Pointillist Surfaces",
-                heroDesc: "An exploration of light, reflection, and aerial stippling on paper by fine artist Alberto Luca Ghin. Oil studies in Modern Pointillism.",
-                heroBtnCatalog: "Explore Catalog",
-                heroBtnStatement: "Artist Statement",
-                artworksTitle: "Selected Artworks",
-                artworksSub: "Oil on paper pointillist studies. All dimensions 30 × 42 cm • 2026 Edition.",
-                artworksShowing: "Showing",
-                artworksCountLabel: "Artworks",
-                searchPlaceholder: "Search title or keyword...",
-                allSeries: "All Series",
-                sortDefault: "Sort: Default Order",
-                sortTitle: "Sort: Title (A-Z)",
-                seriesTag: "Curated Cycles",
-                seriesTitle: "Thematic Series",
-                seriesSub: "Explorations in Modern Pointillism on paper across water, skylines, and aerial perspectives.",
-                s1Desc: "Nocturnal reflections and quiet lakeside studies over Horgen (Zurich Lake) and Pula harbor through oil stippling on paper.",
-                s1Btn: "View 4 Artworks",
-                s2Desc: "Aerial pointillist compositions of Palermo through delicate oil stippling on paper, capturing urban grids and light density.",
-                s2Btn: "View 2 Artworks",
-                s3Desc: "Urban architectural silhouettes and financial district atmospheres created with high-density pointillist oil application.",
-                s3Btn: "View Artwork",
-                bioQuote: `"Pointillism on paper is a meditation on light through rhythmic pigment placement."`,
-                bioTag: "Artist Biography",
-                bioMainText: "Based in Zurich, Alberto Luca Ghin specializes in Modern Pointillism on paper. His 2026 catalog focuses on uniform 30 × 42 cm oil studies investigating nocturnal light on lakes, high-altitude city perspectives, and contemporary financial skylines.",
-                poeticsTitle: "Poetics & Vision",
-                p1Title: "Black as a Primordial Canvas & Active Substance",
-                p1Desc: "In my work, black is never a passive void or mere darkness, but a living, primordial substance. Acting like silence in music, it strips away daytime distractions, creating a dense, contemplative space where forms are preserved before being brought to light.",
-                p2Title: "Pointillism as a Search for Essence",
-                p2Desc: "Through meticulous oil stippling on paper, each individual dot becomes an atomic quantum of energy. By rejecting hard outlines, forms emerge solely through the varying density and proximity of dots—a geometric process that captures the core essence of light and matter.",
-                p3Title: "Night as the Revealer of Light",
-                p3Desc: "Exploring nocturnal visions allows light to act as a sculptor. Rather than illuminating everything indiscriminately, night reflections, urban glows, and luminous horizons emerge from the darkness with heightened intimacy, transforming each piece into a meditative mirror of the inner self.",
-                p4Title: "The Synthesis of Rigor and Mysticism",
-                p4Desc: "My practice bridges two contrasting worlds: the painstaking precision of the pointillist technique and the ethereal, floating quality of the final image. The result is a process of emergence—building luminous, poetic forms directly out of the deep dark.",
-                bioTechniqueNote: "Using precise oil stippling on heavyweight fine art paper, each work builds complex optical colors that reveal subtle depth and texture.",
-                stat1Label: "Current Collection",
-                stat2Label: "Paper Format",
-                stat3Label: "Oil on Paper",
-                exTag: "Selected History",
-                exTitle: "Exhibitions",
-                exCvBtn: "Request Full CV",
-                ex1Title: `"Nocturnal Pointillism & Lake Views"`,
-                ex1Sub: "Zurich Lake Gallery Exhibition • Zurich, Switzerland",
-                ex2Title: `"Aerial Perspectives: Palermo & Beyond"`,
-                ex2Sub: "Contemporary Art Forum • Milan, Italy",
-                ftCopy: "© 2026 Alberto Luca Ghin. All rights reserved. Fine Art Studio & Catalog.",
-                ftLinkCopy: "Copyright Notice",
-                ftLinkInq: "Private Inquiries",
-                ftLinkTop: "Back to Top",
-                cardViewDetails: "View Artwork Details",
-                cardDetailsBtn: "Details",
-                modalCarouselLabel: "Artwork Close-Ups & Details Carousel",
-                modalZoomHint: "Hover artwork for 2.5x pointillist zoom lens",
-                modalZoomBtn: "Toggle Zoom",
-                modalFullscreenBtn: "Fullscreen",
-                modalInquireBtn: "Inquire About Acquisition",
-                lblMedium: "Medium:",
-                lblStyle: "Style:",
-                lblDimensions: "Dimensions:",
-                lblSeries: "Series:",
-                lblCuratorial: "Curatorial Note",
-                inqTitle: "Private Inquiry",
-                lblInqName: "Full Name *",
-                lblInqEmail: "Email Address *",
-                lblInqMsg: "Message / Requirements",
-                inqMsgPh: "Please state your inquiry regarding private viewing or acquisition...",
-                btnInqSubmit: "Send Private Inquiry",
-                protTag: "Intellectual Property Protection",
-                protTitle: "Copyright & AI Opt-Out Statement",
-                protP1: "All visual artworks, images, and curatorial texts on this site are original creations by Alberto Luca Ghin, protected under international copyright law and the EU Copyright Directive (2019/790).",
-                protP2: "All Text & Data Mining (TDM), web scraping, and Generative AI model training are expressly prohibited without written consent.",
-                protBtn: "I Understand"
             }
         };
 
         const artworkDescriptions = {
+            en: {
+                "art-1": "A delicate nocturnal pointillist study capturing quiet villages' reflections and evening light over Horgen (Zurich Lake). (Iteration 0)",
+                "art-2": "A delicate nocturnal pointillist study capturing quiet villages' reflections and evening light over Horgen (Zurich Lake). (Iteration 1)",
+                "art-3": "A delicate nocturnal pointillist study capturing quiet villages' reflections and evening light over Horgen (Zurich Lake). (Iteration 2)",
+                "art-8": "Upcoming continuation of the nocturnal pointillist study series exploring late-night atmospheric light propagation over Horgen (Zurich Lake). (Iteration 3)",
+                "art-4": "Aerial pointillist composition of Palermo through delicate oil stippling on paper (Iteration 1)",
+                "art-5": "Aerial pointillist composition of Palermo through delicate oil stippling on paper (Iteration 2)",
+                "art-6": "A pointillist study on paper exploring coastal maritime reflections and light interplay in Pula harbour.",
+                "art-7": "Urban architectural study capturing modern financial skyline silhouettes through layered pointillist oil application.",
+                "art-9": "Upcoming modern interpretation of Natura Morta."
+            },
             it: {
                 "art-1": "Uno studio notturno puntinista ad olio su carta che cattura i riflessi dei borghi ed i bagliori serali sul lago di Horgen (Lago di Zurigo). (Iterazione 0)",
                 "art-2": "Uno studio notturno puntinista ad olio su carta che cattura i riflessi dei borghi ed i bagliori serali sul lago di Horgen (Lago di Zurigo). (Iterazione 1)",
                 "art-3": "Uno studio notturno puntinista ad olio su carta che cattura i riflessi dei borghi ed i bagliori serali sul lago di Horgen (Lago di Zurigo). (Iterazione 2)",
+                "art-8": "Prossimo capitolo della serie di studi notturni puntinisti che esplora la propagazione della luce atmosferica notturna sul lago di Horgen. (Iterazione 3)",
                 "art-4": "Composizione puntinista aerea della città di Palermo realizzata mediante una delicata stesura ad olio su carta. (Iterazione 1)",
                 "art-5": "Composizione puntinista aerea della città di Palermo realizzata mediante una delicata stesura ad olio su carta. (Iterazione 2)",
                 "art-6": "Studio puntinista su carta che esplora i riflessi marittimi e la luce del porto costiero di Pola.",
-                "art-7": "Studio di architettura urbana che cattura le silhouette dello skyline finanziario moderno di Canary Wharf attraverso densi strati ad olio."
+                "art-7": "Studio di architettura urbana che cattura le silhouette dello skyline finanziario moderno di Canary Wharf attraverso densi strati ad olio.",
+                "art-9": "Prossimo studio filosofico puntinista incentrato sulla caducità organica e la decomposizione simbolica della natura su sfondo primordiale nero."
             },
             de: {
                 "art-1": "Zarte nächtliche pointillistische Studie über ruhige Dorfreflexionen und Abendlicht über Horgen (Zürichsee). (Iteration 0)",
                 "art-2": "Zarte nächtliche pointillistische Studie über ruhige Dorfreflexionen und Abendlicht über Horgen (Zürichsee). (Iteration 1)",
                 "art-3": "Zarte nächtliche pointillistische Studie über ruhige Dorfreflexionen und Abendlicht über Horgen (Zürichsee). (Iteration 2)",
+                "art-8": "Kommende Fortsetzung der nächtlichen pointillistischen Studie über nächtliche Lichtausbreitung am Zürichsee. (Iteration 3)",
                 "art-4": "Pointillistische Luftaufnahme von Palermo durch feine Ölstupftechnik auf Papier. (Iteration 1)",
                 "art-5": "Pointillistische Luftaufnahme von Palermo durch feine Ölstupftechnik auf Papier. (Iteration 2)",
                 "art-6": "Pointillistische Papierstudie über küstennahe maritime Reflexionen und Lichtspiele im Hafen von Pula.",
-                "art-7": "Urbane Architekturstudie über moderne Finanz-Skylines in Canary Wharf durch vielschichtigen pointillistischen Ölauftrag."
-            },
-            en: {
-                "art-1": "A delicate nocturnal pointillist study capturing quiet villages' reflections and evening light over Horgen (Zurich Lake). (Iteration 0)",
-                "art-2": "A delicate nocturnal pointillist study capturing quiet villages' reflections and evening light over Horgen (Zurich Lake). (Iteration 1)",
-                "art-3": "A delicate nocturnal pointillist study capturing quiet villages' reflections and evening light over Horgen (Zurich Lake). (Iteration 2)",
-                "art-4": "Aerial pointillist composition of Palermo through delicate oil stippling on paper (Iteration 1)",
-                "art-5": "Aerial pointillist composition of Palermo through delicate oil stippling on paper (Iteration 2)",
-                "art-6": "A pointillist study on paper exploring coastal maritime reflections and light interplay in Pula harbour.",
-                "art-7": "Urban architectural study capturing modern financial skyline silhouettes through layered pointillist oil application."
+                "art-7": "Urbane Architekturstudie über moderne Finanz-Skylines in Canary Wharf durch vielschichtigen pointillistischen Ölauftrag.",
+                "art-9": "Kommende philosophische pointillistische Studie über organische Vergänglichkeit und symbolischen Zerfall der Natur auf primordialem Schwarz."
             }
         };
 
         const artworkStatuses = {
+            en: {
+                "art-1": "Exhibition Piece",
+                "art-2": "Exhibition Piece",
+                "art-3": "Featured Piece",
+                "art-8": "Upcoming Work",
+                "art-4": "Exhibition Piece",
+                "art-5": "Exhibition Piece",
+                "art-6": "Private Collection",
+                "art-7": "Exhibition Piece",
+                "art-9": "Upcoming Work"
+            },
             it: {
                 "art-1": "Pezzo da Esposizione",
                 "art-2": "Pezzo da Esposizione",
                 "art-3": "Opera In Evidenza",
+                "art-8": "Opera In Arrivo",
                 "art-4": "Pezzo da Esposizione",
                 "art-5": "Pezzo da Esposizione",
                 "art-6": "Collezione Privata",
-                "art-7": "Pezzo da Esposizione"
+                "art-7": "Pezzo da Esposizione",
+                "art-9": "Opera In Arrivo"
             },
             de: {
                 "art-1": "Ausstellungsstück",
                 "art-2": "Ausstellungsstück",
                 "art-3": "Hervorgehobenes Werk",
+                "art-8": "Kommendes Werk",
                 "art-4": "Ausstellungsstück",
                 "art-5": "Ausstellungsstück",
                 "art-6": "Privatsammlung",
-                "art-7": "Ausstellungsstück"
-            },
-            en: {
-                "art-1": "Exhibition Piece",
-                "art-2": "Exhibition Piece",
-                "art-3": "Featured Piece",
-                "art-4": "Exhibition Piece",
-                "art-5": "Exhibition Piece",
-                "art-6": "Private Collection",
-                "art-7": "Exhibition Piece"
+                "art-7": "Ausstellungsstück",
+                "art-9": "Kommendes Werk"
             }
         };
 
@@ -927,7 +940,7 @@
                 dimensions: "30 × 42 cm",
                 series: "Lake View",
                 image: "Images/Horgen after Dark _0.jpg",
-                featured: true
+                isPlaceholder: false
             },
             {
                 id: "art-2",
@@ -939,7 +952,7 @@
                 dimensions: "30 × 42 cm",
                 series: "Lake View",
                 image: "Images/Horgen after Dark _1.jpg",
-                featured: false
+                isPlaceholder: false
             },
             {
                 id: "art-3",
@@ -951,7 +964,20 @@
                 dimensions: "30 × 42 cm",
                 series: "Lake View",
                 image: "Images/Horgen After Dark_2.jpg",
-                featured: true
+                isPlaceholder: false
+            },
+            {
+                id: "art-8",
+                title: "Horgen After Dark_3",
+                artist: "Alberto Luca Ghin",
+                medium: "Oil on Paper",
+                style: "Modern Pointillism",
+                year: "2026",
+                dimensions: "30 × 42 cm",
+                series: "Lake View",
+                image: "Images/Horgen After Dark_3.jpg",
+                isPlaceholder: true,
+                placeholderSubtitle: "Upcoming Work • Horgen Series"
             },
             {
                 id: "art-4",
@@ -963,7 +989,7 @@
                 dimensions: "30 × 42 cm",
                 series: "Cities from the Sky",
                 image: "Images/Palermo Zurich_1.jpg",
-                featured: false
+                isPlaceholder: false
             },
             {
                 id: "art-5",
@@ -975,7 +1001,7 @@
                 dimensions: "30 × 42 cm",
                 series: "Cities from the Sky",
                 image: "Images/Palero Zurich_2.jpg",
-                featured: false
+                isPlaceholder: false
             },
             {
                 id: "art-6",
@@ -987,7 +1013,7 @@
                 dimensions: "30 × 42 cm",
                 series: "Lake View",
                 image: "Images/Boats in Pula.jpg",
-                featured: false
+                isPlaceholder: false
             },
             {
                 id: "art-7",
@@ -999,7 +1025,20 @@
                 dimensions: "30 × 42 cm",
                 series: "Modern Skylines",
                 image: "Images/Rich man in Canary Wharf.jpg",
-                featured: true
+                isPlaceholder: false
+            },
+            {
+                id: "art-9",
+                title: "Natura Morta (The Death of Nature)",
+                artist: "Alberto Luca Ghin",
+                medium: "Oil on Paper",
+                style: "Modern Pointillism",
+                year: "2026",
+                dimensions: "30 × 42 cm",
+                series: "Still Life",
+                image: "Images/Natura Morta.jpg",
+                isPlaceholder: true,
+                placeholderSubtitle: "Upcoming Work • Vanitas & Still Life"
             }
         ];
 
@@ -1147,17 +1186,29 @@
                 const desc = artworkDescriptions[currentLang][art.id] || art.description;
                 const status = artworkStatuses[currentLang][art.id] || art.status;
 
+                const imgBoxHTML = art.isPlaceholder ? `
+                    <div class="w-full h-full bg-gallery-900 flex flex-col items-center justify-center p-6 text-center text-gallery-200 relative group-hover:bg-gallery-800 transition duration-500">
+                        <i class="fa-solid fa-hourglass-half text-3xl text-gallery-gold mb-3"></i>
+                        <span class="font-serif text-lg tracking-wide text-white">${art.title}</span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-gallery-gold mt-1">${art.placeholderSubtitle || 'Upcoming Work'}</span>
+                        <span class="text-[9px] uppercase tracking-widest text-gray-500 mt-3 border border-gallery-gold/30 px-2 py-0.5">30 × 42 cm • Oil on Paper</span>
+                        <div class="protective-overlay opacity-30"></div>
+                    </div>
+                ` : `
+                    <img src="${art.image}" 
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop';" 
+                         alt="${art.title}" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="protective-overlay"></div>
+                `;
+
                 return `
                 <div class="bg-white border border-gallery-200 overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
                     <div>
                         <div class="relative aspect-[16/10] bg-gallery-100 overflow-hidden cursor-pointer flex items-center justify-center" onclick="openArtworkModal('${art.id}')">
-                            <img src="${art.image}" 
-                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop';" 
-                                 alt="${art.title}" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="protective-overlay"></div>
+                            ${imgBoxHTML}
                             
-                            <div class="absolute top-3 left-3 bg-gallery-900/80 backdrop-blur-sm text-gallery-gold text-[10px] uppercase tracking-widest px-2.5 py-1 border border-gallery-gold/30">
+                            <div class="absolute top-3 left-3 bg-gallery-900/80 backdrop-blur-sm text-gallery-gold text-[10px] uppercase tracking-widest px-2.5 py-1 border border-gallery-gold/30 z-20">
                                 ${art.series}
                             </div>
                             
@@ -1252,10 +1303,32 @@
             document.getElementById('modal-series-tag').textContent = currentArtwork.series;
 
             const modalImg = document.getElementById('modal-image');
-            modalImg.src = currentArtwork.image;
-            modalImg.onerror = function() {
-                this.src = 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop';
-            };
+
+            if (currentArtwork.isPlaceholder) {
+                modalImg.style.display = 'none';
+                let container = document.getElementById('modal-img-container');
+                let existingBox = document.getElementById('modal-placeholder-box');
+                if (existingBox) existingBox.remove();
+
+                let phBox = document.createElement('div');
+                phBox.id = 'modal-placeholder-box';
+                phBox.className = 'w-full h-full bg-gallery-900 flex flex-col items-center justify-center p-8 text-center text-gallery-100';
+                phBox.innerHTML = `
+                    <i class="fa-solid fa-hourglass-half text-4xl text-gallery-gold mb-3"></i>
+                    <h3 class="font-serif text-2xl text-white mb-1">${currentArtwork.title}</h3>
+                    <p class="text-xs uppercase tracking-widest text-gallery-gold mb-2">${currentArtwork.placeholderSubtitle || 'Upcoming Work'}</p>
+                    <p class="text-xs text-gray-400 font-light max-w-sm">${artworkDescriptions[currentLang][currentArtwork.id]}</p>
+                `;
+                container.appendChild(phBox);
+            } else {
+                let existingBox = document.getElementById('modal-placeholder-box');
+                if (existingBox) existingBox.remove();
+                modalImg.style.display = 'block';
+                modalImg.src = currentArtwork.image;
+                modalImg.onerror = function() {
+                    this.src = 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop';
+                };
+            }
 
             document.getElementById('thumb-main').src = currentArtwork.image;
             setupZoomLens();
@@ -1263,6 +1336,7 @@
         }
 
         function setMainImageFromThumbnail(src, btn) {
+            if (currentArtwork.isPlaceholder) return;
             document.getElementById('modal-image').src = src;
             setupZoomLens();
         }
@@ -1273,7 +1347,7 @@
             const lens = document.getElementById('zoom-lens');
 
             container.onmousemove = function(e) {
-                if (!isZoomActive) return;
+                if (!isZoomActive || currentArtwork.isPlaceholder) return;
                 lens.style.display = 'block';
 
                 const rect = container.getBoundingClientRect();
@@ -1309,6 +1383,7 @@
         }
 
         function openFullscreenViewer() {
+            if (currentArtwork.isPlaceholder) return;
             document.getElementById('fullscreen-image').src = currentArtwork.image;
             document.getElementById('fullscreen-caption').textContent = `${currentArtwork.title} • ${currentArtwork.medium} (${currentArtwork.dimensions})`;
             openModal('fullscreen-modal');
@@ -1336,7 +1411,7 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            switchLanguage('it');
+            switchLanguage('en');
         });
     </script>
 </body>
