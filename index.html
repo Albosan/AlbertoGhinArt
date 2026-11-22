@@ -331,7 +331,7 @@
     <section class="relative bg-gallery-900 text-white min-h-[75vh] flex items-center overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="Images/Horgen After Dark_2.jpg" 
-                 onerror="this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1600&auto=format&fit=crop'" 
+                 onerror="if (!this.dataset.altTried) { this.dataset.altTried = '1'; this.src = 'Images/Horgen%20After%20Dark_2.jpg'; } else { this.src = 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1600&auto=format&fit=crop'; }" 
                  alt="Horgen After Dark 2 Modern Pointillism oil study on paper by Alberto Luca Ghin" 
                  class="w-full h-full object-cover object-center opacity-95 filter brightness-110 contrast-105">
             
@@ -462,6 +462,7 @@
             <div class="lg:col-span-5 lg:sticky lg:top-28">
                 <div class="relative bg-gallery-200 aspect-[4/5] border border-gallery-200 shadow-lg flex items-center justify-center overflow-hidden">
                     <img src="Images/Foto Profilo.jpg" 
+                         onerror="if (!this.dataset.altTried) { this.dataset.altTried = '1'; this.src = 'Images/Foto%20Profilo.jpg'; }"
                          alt="Alberto Luca Ghin - Contemporary Pointillist Artist in Zurich" 
                          class="w-full h-full object-cover object-center">
                     <div class="protective-overlay"></div>
@@ -718,7 +719,7 @@
                 <div class="lg:col-span-7 bg-gallery-100 p-6 sm:p-8 flex flex-col items-center justify-center relative min-h-[420px]">
                     
                     <div id="modal-img-container" class="relative max-w-full shadow-2xl overflow-hidden bg-gallery-200 w-full h-[320px] sm:h-[380px] flex items-center justify-center cursor-crosshair">
-                        <img id="modal-image" src="" alt="Artwork detail" class="w-full h-full object-contain">
+                        <img id="modal-image" src="" onerror="ghinHandleImgError(this)" alt="Artwork detail" class="w-full h-full object-contain">
                         <div class="protective-overlay"></div>
                         <div id="zoom-lens" class="zoom-lens"></div>
                         <div class="absolute bottom-3 left-3 bg-black/60 text-white text-[10px] px-2.5 py-1 tracking-widest backdrop-blur-sm pointer-events-none uppercase">
@@ -731,7 +732,7 @@
                         <span id="modal-carousel-label" class="text-[10px] uppercase tracking-widest text-gray-500 block mb-2 font-medium">Artwork Close-Ups & Details Carousel</span>
                         <div class="flex items-center gap-3 overflow-x-auto pb-2" id="detail-carousel">
                             <button onclick="setMainImageFromThumbnail(currentArtwork.image, this)" class="w-16 h-16 border-2 border-gallery-gold flex-shrink-0 overflow-hidden bg-gallery-200">
-                                <img id="thumb-main" src="" class="w-full h-full object-cover">
+                                <img id="thumb-main" src="" onerror="ghinHandleImgError(this)" class="w-full h-full object-cover">
                             </button>
                             <div class="w-16 h-16 border border-gallery-300 flex-shrink-0 overflow-hidden bg-gallery-200 flex items-center justify-center text-gray-400 text-[10px] text-center p-1 font-serif italic">
                                 Detail 1
@@ -811,7 +812,7 @@
             <i class="fa-solid fa-xmark"></i>
         </button>
         <div class="relative max-w-full max-h-[90vh] flex items-center justify-center">
-            <img id="fullscreen-image" src="" class="max-w-full max-h-[85vh] object-contain shadow-2xl">
+            <img id="fullscreen-image" src="" onerror="ghinHandleImgError(this)" class="max-w-full max-h-[85vh] object-contain shadow-2xl">
             <div class="protective-overlay"></div>
         </div>
         <p id="fullscreen-caption" class="text-gallery-200 text-xs font-serif mt-4 tracking-widest"></p>
@@ -880,6 +881,19 @@
         var currentInquirySubject = 'General Inquiry';
         var currentArtwork = null;
         var zoomEnabled = true;
+
+        function ghinHandleImgError(imgEl) {
+            if (!imgEl || imgEl.dataset.fallbackDone) return;
+            var rawSrc = imgEl.getAttribute('src') || '';
+            var encodedSrc = encodeURI(rawSrc);
+            if (!imgEl.dataset.encodedTried && encodedSrc && encodedSrc !== rawSrc) {
+                imgEl.dataset.encodedTried = '1';
+                imgEl.src = encodedSrc;
+                return;
+            }
+            imgEl.dataset.fallbackDone = '1';
+            imgEl.src = 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1200&auto=format&fit=crop';
+        }
 
         var artworks = [
             {
@@ -1296,7 +1310,7 @@
                 btnInqSubmit: "Invia Richiesta Privata",
                 protTag: "Protezione della Proprietà Intellettuale",
                 protTitle: "Dichiarazione sul Copyright & Opt-Out AI",
-                protP1: "Tutte le opere visive, le immagini e i testi curatoriali presenti in questo sito sono creazioni originali di Alberto Luca Ghin, protette dalle leggi internazionali sul diritto d'autore e dalla Direttiva UE sul Diritto d'Autore (2019/790).",
+                protP1: "Tutte le opere visive, le immagini e i testi curatoria presenti in questo sito sono creazioni originali di Alberto Luca Ghin, protette dalle leggi internazionali sul diritto d'autore e dalla Direttiva UE sul Diritto d'Autore (2019/790).",
                 protP2: "Qualsiasi attività di Text & Data Mining (TDM), web scraping e addestramento di modelli di Intelligenza Artificiale Generativa è espressamente vietata senza autorizzazione scritta.",
                 protBtn: "Ho Compreso",
                 cookieBadge: "Privacy & Preferenze Cookie",
@@ -1687,7 +1701,7 @@
                 card.className = "bg-white border border-gallery-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-gallery-gold transition duration-300 flex flex-col justify-between group";
                 card.innerHTML =
                     '<div onclick="openArtworkModal(' + art.id + ')" class="relative aspect-[4/3] bg-gallery-100 overflow-hidden cursor-pointer">' +
-                        '<img src="' + art.image + '" alt="' + art.title + ' by Alberto Luca Ghin" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">' +
+                        '<img src="' + art.image + '" onerror="ghinHandleImgError(this)" alt="' + art.title + ' by Alberto Luca Ghin" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">' +
                         '<div class="protective-overlay"></div>' +
                     '</div>' +
                     '<div class="p-6 flex flex-col justify-between flex-1">' +
@@ -1774,8 +1788,14 @@
             if (!art) return;
             currentArtwork = art;
 
-            document.getElementById('modal-image').src = art.image;
-            document.getElementById('thumb-main').src = art.image;
+            var modalImg = document.getElementById('modal-image');
+            var thumbImg = document.getElementById('thumb-main');
+            delete modalImg.dataset.encodedTried;
+            delete modalImg.dataset.fallbackDone;
+            delete thumbImg.dataset.encodedTried;
+            delete thumbImg.dataset.fallbackDone;
+            modalImg.src = art.image;
+            thumbImg.src = art.image;
             document.getElementById('modal-title').textContent = art.title;
             document.getElementById('modal-status').textContent = art.status;
             document.getElementById('modal-year').textContent = art.year;
@@ -1786,15 +1806,18 @@
             document.getElementById('modal-description').textContent = art.description;
 
             var lens = document.getElementById('zoom-lens');
-            if (lens) lens.style.backgroundImage = "url('" + art.image + "')";
+            if (lens) lens.style.backgroundImage = "url('" + encodeURI(art.image) + "')";
 
             openModal('artwork-modal');
         }
 
         function setMainImageFromThumbnail(src) {
-            document.getElementById('modal-image').src = src;
+            var modalImg = document.getElementById('modal-image');
+            delete modalImg.dataset.encodedTried;
+            delete modalImg.dataset.fallbackDone;
+            modalImg.src = src;
             var lens = document.getElementById('zoom-lens');
-            if (lens) lens.style.backgroundImage = "url('" + src + "')";
+            if (lens) lens.style.backgroundImage = "url('" + encodeURI(src) + "')";
         }
 
         function toggleZoomMode() {
@@ -1805,7 +1828,10 @@
 
         function openFullscreenViewer() {
             if (!currentArtwork) return;
-            document.getElementById('fullscreen-image').src = currentArtwork.image;
+            var fsImg = document.getElementById('fullscreen-image');
+            delete fsImg.dataset.encodedTried;
+            delete fsImg.dataset.fallbackDone;
+            fsImg.src = currentArtwork.image;
             document.getElementById('fullscreen-caption').textContent = currentArtwork.title + ' (' + currentArtwork.dimensions + ') — Alberto Luca Ghin';
             openModal('fullscreen-modal');
         }
