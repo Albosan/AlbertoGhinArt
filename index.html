@@ -5,6 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALBERTO LUCA GHIN STUDIO | Contemporary Fine Art</title>
 
+    <!-- Google Consent Mode v2 (Default Denied for EU/CH/Global Opt-In Compliance) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      window.GHIN_CONSENT_STORAGE_KEY = 'alberto_ghin_cookie_consent_v1';
+
+      window.ghinReadStoredConsent = function() {
+        try {
+          var raw = localStorage.getItem(window.GHIN_CONSENT_STORAGE_KEY);
+          if (!raw) return null;
+          var parsed = JSON.parse(raw);
+          if (parsed && typeof parsed.analytics === 'boolean') {
+            return parsed;
+          }
+        } catch (e) {}
+        return null;
+      };
+
+      var ghinInitialConsent = window.ghinReadStoredConsent();
+      var ghinInitialAnalytics = (ghinInitialConsent && ghinInitialConsent.analytics) ? 'granted' : 'denied';
+
+      gtag('consent', 'default', {
+        'ad_storage': ghinInitialAnalytics,
+        'ad_user_data': ghinInitialAnalytics,
+        'ad_personalization': ghinInitialAnalytics,
+        'analytics_storage': ghinInitialAnalytics,
+        'functionality_storage': 'granted',
+        'personalization_storage': 'denied',
+        'security_storage': 'granted',
+        'wait_for_update': 500
+      });
+
+      gtag('set', 'ads_data_redaction', true);
+      gtag('set', 'url_passthrough', true);
+    </script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FSWYX33PF0"></script>
     <script>
@@ -436,11 +473,63 @@
             </div>
             <div class="flex items-center space-x-6 text-gray-400">
                 <a href="#" onclick="openModal('protection-modal'); return false;" id="ft-link-copy" class="hover:text-gallery-gold transition">Copyright Notice</a>
+                <a href="#" onclick="openCookieBanner(); return false;" id="ft-link-cookies" class="hover:text-gallery-gold transition">Cookie Settings</a>
                 <a href="#" onclick="openInquiryModal('Private Inquiry'); return false;" id="ft-link-inq" class="hover:text-gallery-gold transition">Private Inquiries</a>
                 <a href="#artworks" id="ft-link-top" class="hover:text-gallery-gold transition">Back to Top <i class="fa-solid fa-arrow-up ml-1"></i></a>
             </div>
         </div>
     </footer>
+
+
+    <!-- COOKIE CONSENT BANNER (EU GDPR/ePrivacy, Switzerland FADP/nFADP & Global Privacy) -->
+    <div id="cookie-consent-banner" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-xl z-50 hidden bg-white text-gallery-900 border border-gallery-300 shadow-2xl p-5 sm:p-6 fade-in">
+        <div class="flex items-start justify-between gap-3 mb-2.5">
+            <div class="flex items-center gap-2 text-gallery-gold">
+                <i class="fa-solid fa-cookie-bite text-base"></i>
+                <span id="cookie-badge" class="text-[10px] uppercase tracking-[0.22em] font-semibold">Privacy & Cookie Notice (EU • CH • Global)</span>
+            </div>
+        </div>
+
+        <p id="cookie-desc" class="text-xs text-gray-600 leading-relaxed mb-4">
+            We respect your privacy under EU GDPR/ePrivacy, Swiss FADP/nFADP, and global privacy standards. Essential storage keeps your preferences active; Google Analytics (G-FSWYX33PF0) runs only if you opt in.
+        </p>
+
+        <div id="cookie-custom-panel" class="hidden bg-gallery-50 border border-gallery-200 p-3.5 mb-4 space-y-2.5 text-xs">
+            <div class="flex items-center justify-between gap-3">
+                <div>
+                    <span id="cookie-ess-label" class="font-semibold text-gallery-900 block">Strictly Necessary</span>
+                    <span id="cookie-ess-desc" class="text-[11px] text-gray-500">Required for site display, security, and saving consent choices.</span>
+                </div>
+                <span id="cookie-ess-state" class="text-[10px] uppercase tracking-widest text-gallery-gold font-semibold">Always Active</span>
+            </div>
+            <div class="flex items-center justify-between gap-3 pt-2 border-t border-gallery-200">
+                <div>
+                    <label for="cookie-analytics-checkbox" id="cookie-ana-label" class="font-semibold text-gallery-900 block cursor-pointer">Analytics Cookies (Google Analytics)</label>
+                    <span id="cookie-ana-desc" class="text-[11px] text-gray-500">Helps measure catalog visits in aggregated form.</span>
+                </div>
+                <input type="checkbox" id="cookie-analytics-checkbox" class="h-4 w-4 accent-[#C5A059] cursor-pointer">
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+            <div class="flex flex-wrap items-center gap-2">
+                <button onclick="acceptAllCookies()" id="cookie-btn-accept" class="bg-gallery-900 text-white hover:bg-gallery-gold px-4 py-2 text-[11px] uppercase tracking-widest font-medium transition">
+                    Accept All
+                </button>
+                <button onclick="rejectNonEssentialCookies()" id="cookie-btn-reject" class="border border-gallery-900 text-gallery-900 hover:bg-gallery-100 px-4 py-2 text-[11px] uppercase tracking-widest font-medium transition">
+                    Essential Only
+                </button>
+            </div>
+            <div class="flex items-center justify-end gap-3">
+                <button onclick="toggleCookieCustomPanel()" id="cookie-btn-customize" class="text-[11px] uppercase tracking-widest text-gray-600 hover:text-gallery-900 underline font-medium transition">
+                    Customize
+                </button>
+                <button onclick="saveCustomCookieChoice()" id="cookie-btn-save" class="hidden bg-gallery-gold text-gallery-900 hover:bg-gallery-goldhover hover:text-white px-3.5 py-2 text-[11px] uppercase tracking-widest font-semibold transition">
+                    Save Preferences
+                </button>
+            </div>
+        </div>
+    </div>
 
 
     <!-- ARTWORK DETAIL MODAL -->
@@ -675,6 +764,7 @@
                 ex2Sub: "Forum d'Arte Contemporanea • Milano, Italia",
                 ftCopy: "© 2026 Alberto Luca Ghin. Tutti i diritti riservati. Studio d'Arte & Catalogo.",
                 ftLinkCopy: "Note sul Copyright",
+                ftLinkCookies: "Impostazioni Cookie",
                 ftLinkInq: "Richieste Private",
                 ftLinkTop: "Torna Su",
                 cardViewDetails: "Vedi Dettagli Opera",
@@ -699,7 +789,18 @@
                 protTitle: "Dichiarazione sul Copyright & Opt-Out AI",
                 protP1: "Tutte le opere visive, le immagini e i testi curatoriali presenti in questo sito sono creazioni originali di Alberto Luca Ghin, protette dalle leggi internazionali sul diritto d'autore e dalla Direttiva UE sul Diritto d'Autore (2019/790).",
                 protP2: "Qualsiasi attività di Text & Data Mining (TDM), web scraping e addestramento di modelli di Intelligenza Artificiale Generativa è espressamente vietata senza autorizzazione scritta.",
-                protBtn: "Ho Compreso"
+                protBtn: "Ho Compreso",
+                cookieBadge: "Informativa Cookie & Privacy (UE • CH • Globale)",
+                cookieDesc: "Rispettiamo la tua privacy secondo GDPR/ePrivacy UE, LPD/nLPD svizzera e normative globali. L'archiviazione essenziale mantiene attive le preferenze; Google Analytics (G-FSWYX33PF0) si attiva solo con il tuo consenso.",
+                cookieEssLabel: "Strettamente Necessari",
+                cookieEssDesc: "Necessari per visualizzazione, sicurezza e salvataggio delle scelte sui cookie.",
+                cookieEssState: "Sempre Attivo",
+                cookieAnaLabel: "Cookie Analitici (Google Analytics)",
+                cookieAnaDesc: "Aiuta a misurare le visite al catalogo in forma aggregata.",
+                cookieBtnAccept: "Accetta Tutti",
+                cookieBtnReject: "Solo Essenziali",
+                cookieBtnCustomize: "Personalizza",
+                cookieBtnSave: "Salva Preferenze"
             },
             de: {
                 banner: "Alle Kunstwerke sind geschützt gemäß EU-Urheberrecht & TDM AI Opt-Out-Richtlinien. Original-Pointillismus auf Papier.",
@@ -756,16 +857,9 @@
                 ex1Sub: "Ausstellung in der Zurich Lake Gallery • Zürich, Schweiz",
                 ex2Title: `"Luftperspektiven: Palermo & Darüber Hinaus"`,
                 ex2Sub: "Forum für Zeitgenössische Kunst • Mailand, Italien",
-                faqTag: "Sammler- & Pressehinweise",
-                faqTitle: "Häufig Gestellte Fragen",
-                faqQ1: "Welche Technik und welches Format haben die Werke 2026?",
-                faqA1: "Jedes Werk des Katalogs 2026 ist eine originale Ölstudie im Modernen Pointillismus auf Papier im einheitlichen Format 30 × 42 cm, entstanden in Zürich von Alberto Luca Ghin.",
-                faqQ2: "Wie lassen sich private Ansichten oder Erwerbungen anfragen?",
-                faqA2: "Anfragen aus der Schweiz, Großbritannien, den USA, Deutschland, Frankreich und weiteren Kunstmärkten können direkt über das Anfrageformular der Website gesendet werden.",
-                faqQ3: "Welche Themen stehen im Mittelpunkt des Katalogs?",
-                faqA3: "Der Katalog untersucht nächtliches Licht am Zürichsee (Horgen) und im Hafen von Pula (Lake View), Luftansichten von Palermo (Cities from the Sky) sowie moderne Skylines wie Canary Wharf (Modern Skylines).",
                 ftCopy: "© 2026 Alberto Luca Ghin. Alle Rechte vorbehalten. Fine Art Studio & Katalog.",
                 ftLinkCopy: "Urheberrechtshinweis",
+                ftLinkCookies: "Cookie-Einstellungen",
                 ftLinkInq: "Private Anfragen",
                 ftLinkTop: "Nach Oben",
                 cardViewDetails: "Werkdetails Ansehen",
@@ -790,7 +884,18 @@
                 protTitle: "Urheberrecht & KI Opt-Out Erklärung",
                 protP1: "Alle visuellen Kunstwerke, Bilder und kuratorischen Texte auf dieser Website sind originale Werke von Alberto Luca Ghin, geschützt durch das internationale Urheberrecht und die EU-Urheberrechtsrichtlinie (2019/790).",
                 protP2: "Jegliches Text & Data Mining (TDM), Web-Scraping und das Training von Generativen KI-Modellen ist ohne schriftliche Genehmigung ausdrücklich untersagt.",
-                protBtn: "Ich Verstehe"
+                protBtn: "Ich Verstehe",
+                cookieBadge: "Datenschutz- & Cookie-Hinweis (EU • CH • Global)",
+                cookieDesc: "Wir schützen Ihre Privatsphäre nach EU-DSGVO/ePrivacy, Schweizer revDSG und globalen Datenschutzstandards. Essenzielle Speicherfunktionen sichern Ihre Auswahl; Google Analytics (G-FSWYX33PF0) wird nur mit Ihrer Einwilligung aktiv.",
+                cookieEssLabel: "Technisch Erforderlich",
+                cookieEssDesc: "Erforderlich für Darstellung, Sicherheit und Speicherung Ihrer Cookie-Auswahl.",
+                cookieEssState: "Immer Aktiv",
+                cookieAnaLabel: "Analyse-Cookies (Google Analytics)",
+                cookieAnaDesc: "Hilft, Katalogaufrufe aggregiert auszuwerten.",
+                cookieBtnAccept: "Alle Akzeptieren",
+                cookieBtnReject: "Nur Essenzielle",
+                cookieBtnCustomize: "Anpassen",
+                cookieBtnSave: "Einstellungen Speichern"
             },
             en: {
                 banner: "All artworks protected under EU Copyright & TDM AI Opt-Out Directives. Original Pointillism on Paper.",
@@ -849,6 +954,7 @@
                 ex2Sub: "Contemporary Art Forum • Milan, Italy",
                 ftCopy: "© 2026 Alberto Luca Ghin. All rights reserved. Fine Art Studio & Catalog.",
                 ftLinkCopy: "Copyright Notice",
+                ftLinkCookies: "Cookie Settings",
                 ftLinkInq: "Private Inquiries",
                 ftLinkTop: "Back to Top",
                 cardViewDetails: "View Artwork Details",
@@ -873,7 +979,18 @@
                 protTitle: "Copyright & AI Opt-Out Statement",
                 protP1: "All visual artworks, images, and curatorial texts on this site are original creations by Alberto Luca Ghin, protected under international copyright law and the EU Copyright Directive (2019/790).",
                 protP2: "All Text & Data Mining (TDM), web scraping, and Generative AI model training are expressly prohibited without written consent.",
-                protBtn: "I Understand"
+                protBtn: "I Understand",
+                cookieBadge: "Privacy & Cookie Notice (EU • CH • Global)",
+                cookieDesc: "We respect your privacy under EU GDPR/ePrivacy, Swiss FADP/nFADP, and global privacy standards. Essential storage keeps your preferences active; Google Analytics (G-FSWYX33PF0) runs only if you opt in.",
+                cookieEssLabel: "Strictly Necessary",
+                cookieEssDesc: "Required for site display, security, and saving consent choices.",
+                cookieEssState: "Always Active",
+                cookieAnaLabel: "Analytics Cookies (Google Analytics)",
+                cookieAnaDesc: "Helps measure catalog visits in aggregated form.",
+                cookieBtnAccept: "Accept All",
+                cookieBtnReject: "Essential Only",
+                cookieBtnCustomize: "Customize",
+                cookieBtnSave: "Save Preferences"
             }
         };
 
@@ -954,8 +1071,6 @@
                 dimensions: "30 × 42 cm",
                 series: "Lake View",
                 image: "Images/Horgen after Dark _0.jpg",
-                status: "Exhibition Piece",
-                description: "A delicate nocturnal pointillist study capturing quiet villages' reflections and evening light over Horgen (Zurich Lake). (Iteration 0)",
                 featured: true
             },
             {
@@ -968,8 +1083,6 @@
                 dimensions: "30 × 42 cm",
                 series: "Lake View",
                 image: "Images/Horgen after Dark _1.jpg",
-                status: "Exhibition Piece",
-                description: "A delicate nocturnal pointillist study capturing quiet villages' reflections and evening light over Horgen (Zurich Lake). (Iteration 1)",
                 featured: false
             },
             {
@@ -982,8 +1095,6 @@
                 dimensions: "30 × 42 cm",
                 series: "Lake View",
                 image: "Images/Horgen After Dark_2.jpg",
-                status: "Featured Piece",
-                description: "A delicate nocturnal pointillist study capturing quiet villages' reflections and evening light over Horgen (Zurich Lake). (Iteration 2)",
                 featured: true
             },
             {
@@ -996,8 +1107,6 @@
                 dimensions: "30 × 42 cm",
                 series: "Lake View",
                 image: "Images/Horgen After Dark_3.jpg",
-                status: "Exhibition Piece",
-                description: "Nocturnal pointillist oil study on paper continuing the exploration of light refractions across Horgen (Zurich Lake). (Iteration 3)",
                 featured: true
             },
             {
@@ -1010,8 +1119,6 @@
                 dimensions: "30 × 42 cm",
                 series: "Cities from the Sky",
                 image: "Images/Palermo Zurich_1.jpg",
-                status: "Exhibition Piece",
-                description: "Aerial pointillist composition of Palermo through delicate oil stippling on paper (Iteration 1)",
                 featured: false
             },
             {
@@ -1024,8 +1131,6 @@
                 dimensions: "30 × 42 cm",
                 series: "Cities from the Sky",
                 image: "Images/Palero Zurich_2.jpg",
-                status: "Exhibition Piece",
-                description: "Aerial pointillist composition of Palermo through delicate oil stippling on paper (Iteration 2)",
                 featured: false
             },
             {
@@ -1038,8 +1143,6 @@
                 dimensions: "30 × 42 cm",
                 series: "Lake View",
                 image: "Images/Boats in Pula.jpg",
-                status: "Private Collection",
-                description: "A pointillist study on paper exploring coastal maritime reflections and light interplay in Pula harbour.",
                 featured: false
             },
             {
@@ -1052,8 +1155,6 @@
                 dimensions: "30 × 42 cm",
                 series: "Modern Skylines",
                 image: "Images/Rich man in Canary Wharf.jpg",
-                status: "Exhibition Piece",
-                description: "Urban architectural study capturing modern financial skyline silhouettes through layered pointillist oil application.",
                 featured: true
             }
         ];
@@ -1061,6 +1162,80 @@
         let filteredArtworks = [...artworks];
         let currentArtwork = artworks[0];
         let isZoomActive = true;
+
+        function applyCookieConsentState(analyticsGranted) {
+            if (typeof gtag === 'function') {
+                const value = analyticsGranted ? 'granted' : 'denied';
+                gtag('consent', 'update', {
+                    'ad_storage': value,
+                    'ad_user_data': value,
+                    'ad_personalization': value,
+                    'analytics_storage': value,
+                    'functionality_storage': 'granted',
+                    'personalization_storage': 'denied',
+                    'security_storage': 'granted'
+                });
+            }
+        }
+
+        function saveCookieConsent(analyticsGranted) {
+            const record = {
+                analytics: Boolean(analyticsGranted),
+                updatedAt: new Date().toISOString()
+            };
+            try {
+                localStorage.setItem(window.GHIN_CONSENT_STORAGE_KEY, JSON.stringify(record));
+            } catch (e) {}
+            applyCookieConsentState(Boolean(analyticsGranted));
+            const checkbox = document.getElementById('cookie-analytics-checkbox');
+            if (checkbox) checkbox.checked = Boolean(analyticsGranted);
+            const banner = document.getElementById('cookie-consent-banner');
+            if (banner) banner.classList.add('hidden');
+        }
+
+        function acceptAllCookies() {
+            saveCookieConsent(true);
+        }
+
+        function rejectNonEssentialCookies() {
+            saveCookieConsent(false);
+        }
+
+        function toggleCookieCustomPanel() {
+            const panel = document.getElementById('cookie-custom-panel');
+            const saveBtn = document.getElementById('cookie-btn-save');
+            if (!panel || !saveBtn) return;
+            const willShow = panel.classList.contains('hidden');
+            panel.classList.toggle('hidden', !willShow);
+            saveBtn.classList.toggle('hidden', !willShow);
+        }
+
+        function saveCustomCookieChoice() {
+            const checkbox = document.getElementById('cookie-analytics-checkbox');
+            saveCookieConsent(checkbox ? checkbox.checked : false);
+        }
+
+        function openCookieBanner() {
+            const banner = document.getElementById('cookie-consent-banner');
+            const saved = window.ghinReadStoredConsent();
+            const checkbox = document.getElementById('cookie-analytics-checkbox');
+            if (checkbox) checkbox.checked = saved ? Boolean(saved.analytics) : false;
+            if (banner) banner.classList.remove('hidden');
+        }
+
+        function initCookieConsent() {
+            const saved = window.ghinReadStoredConsent();
+            const checkbox = document.getElementById('cookie-analytics-checkbox');
+            if (saved) {
+                applyCookieConsentState(Boolean(saved.analytics));
+                if (checkbox) checkbox.checked = Boolean(saved.analytics);
+            } else {
+                applyCookieConsentState(false);
+                if (checkbox) checkbox.checked = false;
+                const banner = document.getElementById('cookie-consent-banner');
+                if (banner) banner.classList.remove('hidden');
+            }
+        }
 
         function switchLanguage(lang) {
             currentLang = lang;
@@ -1148,6 +1323,7 @@
 
             document.getElementById('ft-copy').textContent = t.ftCopy;
             document.getElementById('ft-link-copy').textContent = t.ftLinkCopy;
+            document.getElementById('ft-link-cookies').textContent = t.ftLinkCookies;
             document.getElementById('ft-link-inq').textContent = t.ftLinkInq;
             document.getElementById('ft-link-top').childNodes[0].nodeValue = t.ftLinkTop + " ";
 
@@ -1175,6 +1351,18 @@
             document.getElementById('prot-p2').textContent = t.protP2;
             document.getElementById('prot-btn').textContent = t.protBtn;
 
+            document.getElementById('cookie-badge').textContent = t.cookieBadge;
+            document.getElementById('cookie-desc').textContent = t.cookieDesc;
+            document.getElementById('cookie-ess-label').textContent = t.cookieEssLabel;
+            document.getElementById('cookie-ess-desc').textContent = t.cookieEssDesc;
+            document.getElementById('cookie-ess-state').textContent = t.cookieEssState;
+            document.getElementById('cookie-ana-label').textContent = t.cookieAnaLabel;
+            document.getElementById('cookie-ana-desc').textContent = t.cookieAnaDesc;
+            document.getElementById('cookie-btn-accept').textContent = t.cookieBtnAccept;
+            document.getElementById('cookie-btn-reject').textContent = t.cookieBtnReject;
+            document.getElementById('cookie-btn-customize').textContent = t.cookieBtnCustomize;
+            document.getElementById('cookie-btn-save').textContent = t.cookieBtnSave;
+
             renderGallery(filteredArtworks);
             if (currentArtwork && !document.getElementById('artwork-modal').classList.contains('hidden')) {
                 openArtworkModal(currentArtwork.id);
@@ -1199,8 +1387,8 @@
             }
 
             container.innerHTML = items.map(art => {
-                const desc = (artworkDescriptions[currentLang] && artworkDescriptions[currentLang][art.id]) || art.description;
-                const status = (artworkStatuses[currentLang] && artworkStatuses[currentLang][art.id]) || art.status;
+                const desc = artworkDescriptions[currentLang][art.id] || art.description;
+                const status = artworkStatuses[currentLang][art.id] || art.status;
 
                 return `
                 <div class="bg-white border border-gallery-200 overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
@@ -1255,7 +1443,7 @@
             const sort = document.getElementById('sort-order').value;
 
             filteredArtworks = artworks.filter(item => {
-                const desc = ((artworkDescriptions[currentLang] && artworkDescriptions[currentLang][item.id]) || item.description || "").toLowerCase();
+                const desc = (artworkDescriptions[currentLang][item.id] || "").toLowerCase();
                 const matchesSearch = item.title.toLowerCase().includes(search) || 
                                       desc.includes(search) ||
                                       item.series.toLowerCase().includes(search);
@@ -1302,8 +1490,8 @@
             document.getElementById('modal-style').textContent = currentArtwork.style;
             document.getElementById('modal-dimensions').textContent = currentArtwork.dimensions;
             document.getElementById('modal-year').textContent = currentArtwork.year;
-            document.getElementById('modal-status').textContent = (artworkStatuses[currentLang] && artworkStatuses[currentLang][currentArtwork.id]) || currentArtwork.status;
-            document.getElementById('modal-description').textContent = (artworkDescriptions[currentLang] && artworkDescriptions[currentLang][currentArtwork.id]) || currentArtwork.description;
+            document.getElementById('modal-status').textContent = artworkStatuses[currentLang][currentArtwork.id] || currentArtwork.status;
+            document.getElementById('modal-description').textContent = artworkDescriptions[currentLang][currentArtwork.id] || currentArtwork.description;
             document.getElementById('modal-series-tag').textContent = currentArtwork.series;
 
             const modalImg = document.getElementById('modal-image');
@@ -1312,12 +1500,7 @@
                 this.src = 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop';
             };
 
-            const thumbImg = document.getElementById('thumb-main');
-            thumbImg.src = currentArtwork.image;
-            thumbImg.onerror = function() {
-                this.src = 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop';
-            };
-
+            document.getElementById('thumb-main').src = currentArtwork.image;
             setupZoomLens();
             openModal('artwork-modal');
         }
@@ -1369,11 +1552,7 @@
         }
 
         function openFullscreenViewer() {
-            const fsImg = document.getElementById('fullscreen-image');
-            fsImg.src = currentArtwork.image;
-            fsImg.onerror = function() {
-                this.src = 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop';
-            };
+            document.getElementById('fullscreen-image').src = currentArtwork.image;
             document.getElementById('fullscreen-caption').textContent = `${currentArtwork.title} • ${currentArtwork.medium} (${currentArtwork.dimensions})`;
             openModal('fullscreen-modal');
         }
@@ -1467,6 +1646,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             switchLanguage('en');
+            initCookieConsent();
         });
     </script>
 </body>
